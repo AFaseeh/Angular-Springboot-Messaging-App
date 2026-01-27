@@ -1,0 +1,13 @@
+<main>
+  <h1>Messaging App!</h1>
+  @if (user()) {
+    <app-chat [user]="user()!" />
+  }
+  @else {
+    <form (ngSubmit)="onCreateUser()">
+    <label for="UserName">Enter UserName: </label>
+    <input type="text" id="UserName" name="UserName" [(ngModel)]="UserName" />
+    <button type="submit">Send</button>
+  </form>
+  }
+</main>

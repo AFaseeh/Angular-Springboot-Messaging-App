@@ -1,0 +1,12 @@
+@if (chatMessages().length === 0) {
+  <p class="no-messages">No messages yet</p>
+} @else {
+  @for (msg of chatMessages(); track msg) {
+    <app-chat-message [message]="msg" [currentUserId]="user().id" />
+  }
+}
+<form (ngSubmit)="onSendMessage()">
+    <label for="sendMessage">Enter Message: </label>
+    <input type="text" id="sendMessage" name="sendMessage" [(ngModel)]="messageContent" />
+    <button type="submit">Send</button>
+</form>
