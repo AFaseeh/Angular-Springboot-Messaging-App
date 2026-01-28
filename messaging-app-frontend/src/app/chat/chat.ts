@@ -1,9 +1,8 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { ChatService } from '../service/chat.service';
 import { ChatUser } from '../model/ChatUser';
 import { ChatMessage } from '../chat-message/chat-message';
 import { FormsModule } from '@angular/forms';
-import { Message } from '../model/Message';
 
 @Component({
   selector: 'app-chat',

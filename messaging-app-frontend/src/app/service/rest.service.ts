@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, DestroyRef, inject, Injectable, signal } from '@angular/core';
+import { DestroyRef, inject, Injectable} from '@angular/core';
 import { Observable } from 'rxjs';
 import { Message } from '../model/Message';
 import { ChatUser } from '../model/ChatUser';

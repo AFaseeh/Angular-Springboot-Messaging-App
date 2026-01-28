@@ -1,5 +1,4 @@
-import { Component, DestroyRef, inject, OnInit, Signal, signal } from '@angular/core';
-import { RestService } from '../service/rest.service';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Chat } from '../chat/chat';
 import { ChatUser } from '../model/ChatUser';
