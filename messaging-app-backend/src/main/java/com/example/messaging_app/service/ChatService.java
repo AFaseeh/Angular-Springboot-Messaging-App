@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.messaging_app.dto.UserLoginInfoDto;
 import com.example.messaging_app.model.ChatMessage;
 import com.example.messaging_app.model.ChatUser;
 import com.example.messaging_app.repo.ChatRepo;
@@ -19,9 +20,9 @@ public class ChatService {
         this.chatRepo = chatRepo;
     }
     
-    public ChatUser CreateNewUser(String userName) 
+    public ChatUser CreateNewUser(String name, UserLoginInfoDto userLogin) 
     {
-        return userRepo.save(new ChatUser(null, userName));
+        return userRepo.save(new ChatUser(null, name, userLogin.username(), userLogin.password()));
     }
     public List<ChatMessage> getMessages() {
         return chatRepo.findAll();

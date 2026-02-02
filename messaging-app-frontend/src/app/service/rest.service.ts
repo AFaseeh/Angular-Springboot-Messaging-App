@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { DestroyRef, inject, Injectable} from '@angular/core';
 import { Observable } from 'rxjs';
 import { Message } from '../model/Message';
-import { ChatUser } from '../model/ChatUser';
+import { UserLoginInfo } from '../model/UserLoginDto';
+import { ChatRegisterResult } from '../model/ChatRegisterResult';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +17,8 @@ export class RestService {
     return this.httpClient.get<{text : string}>(`${this.BASEURL}/test`);
   }
 
-  createUser(userName: string): Observable<ChatUser> {
-    return this.httpClient.post<ChatUser>(`${this.BASEURL}/users/add/${userName}`, null);
+  createUser(userName: string, userLoginInfo: UserLoginInfo): Observable<ChatRegisterResult> {
+    return this.httpClient.post<ChatRegisterResult>(`${this.BASEURL}/register/${userName}`, userLoginInfo);
   }
 
   getMessages(): Observable<Message[]> {

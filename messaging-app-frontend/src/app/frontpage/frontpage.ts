@@ -1,31 +1,24 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, Signal, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Chat } from '../chat/chat';
 import { ChatUser } from '../model/ChatUser';
 import { ChatService } from '../service/chat.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AuthService } from '../service/auth.service';
+import { map } from 'rxjs';
+import { ChatRegisterError } from '../model/ChatRegisterResult';
+import { Register } from '../register/register';
 
 @Component({
   selector: 'app-frontpage',
-  imports: [FormsModule, Chat],
+  imports: [FormsModule, Chat, Register],
   templateUrl: './frontpage.html',
   styleUrl: './frontpage.css',
 })
 export class Frontpage {
-  private service = inject(ChatService);
-  private destroyRef = inject(DestroyRef);
   user = signal<ChatUser | undefined>(undefined);
-  UserName = signal('');
 
-  onCreateUser() {
-    const username = this.UserName().toLowerCase().trim();
-    if (username.length != 0) {
-      this.service
-        .createUser(username)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((user) => {
-          this.user.set(user);
-        });
-    }
+  onAuthComplete(user: ChatUser) {
+    this.user.set(user);
   }
 }

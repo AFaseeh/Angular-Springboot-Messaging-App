@@ -3,6 +3,7 @@ import { RestService } from './rest.service';
 import { WebSocketService } from './web-socket.service';
 import { Message } from '../model/Message';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UserLoginInfo } from '../model/UserLoginDto';
 
 @Injectable({
   providedIn: 'root',
@@ -17,19 +18,11 @@ export class ChatService {
     private ws: WebSocketService,
     private destroyRef: DestroyRef,
   ) {
-    this.rest
-      .getMessages()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((msgs) => {
-        this.messages.set(msgs.slice(-this.maxLen));
-      });
-
     this.ws
       .getLiveMessages()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((msg) => {
-        if (msg)
-        {
+        if (msg) {
           this.messages.update((msgs) => {
             const updatedMsgs = [...msgs, msg];
             if (updatedMsgs.length > this.maxLen) updatedMsgs.shift();
@@ -39,16 +32,33 @@ export class ChatService {
       });
   }
 
-  createUser(username: string)
-  {
-    return this.rest.createUser(username);
+  createUser(name: string, userLoginInfo: UserLoginInfo) {
+    return this.rest.createUser(name, userLoginInfo);
   }
 
   sendMessage(msg: Message) {
     this.ws.sendMessage(msg);
   }
 
+  initChat() {
+    this.rest
+      .getMessages()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((msgs) => {
+        this.messages.set(msgs.slice(-this.maxLen));
+      });
+  }
+
   getMessages(): Signal<Message[]> {
     return this.messages.asReadonly();
+  }
+
+  connectWsWithAuth() {
+    this.ws.connectWsWithAuth();
+  }
+  
+  disconnectWs()
+  {
+    this.ws.disconnectWs();
   }
 }

@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "app.bcrypt.strength",
+  "type": "java.lang.String",
+  "description": "Password Encryption strength"
+}]}

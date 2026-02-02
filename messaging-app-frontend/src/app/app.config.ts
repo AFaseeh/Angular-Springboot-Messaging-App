@@ -2,17 +2,15 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
-import { RxStompService, rxStompServiceFactory } from './service/RxStompService.service';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { RxStompService } from './service/RxStompService.service';
+import { basicAuthInterceptor } from './basic-auth-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideHttpClient(),
-    {
-      provide: RxStompService,
-      useFactory: rxStompServiceFactory
-    }
+    provideHttpClient(withInterceptors([basicAuthInterceptor])),
+    RxStompService
   ]
 };

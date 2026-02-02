@@ -1,6 +1,12 @@
-INSERT INTO chat_user (name) VALUES ('Alice');
-INSERT INTO chat_user (name) VALUES ('Bob');
-INSERT INTO chat_user (name) VALUES ('Charlie');
+INSERT INTO chat_user (name, user_name, password)
+VALUES ('Alice', 'alice', 'password123');
+
+INSERT INTO chat_user (name, user_name, password)
+VALUES ('Bob', 'bob', 'password123');
+
+INSERT INTO chat_user (name, user_name, password)
+VALUES ('Charlie', 'charlie', 'password123');
+
 
 
 

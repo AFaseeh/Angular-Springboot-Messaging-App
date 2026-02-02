@@ -1,0 +1,37 @@
+<form (ngSubmit)="onCreateUser()">
+  <div>
+    <label for="Name">Enter Name: </label>
+    <input type="text" id="Name" name="Name" [(ngModel)]="Name" />
+  </div>
+  <div>
+    <label for="UserName">Enter UserName: </label>
+    <input type="text" id="UserName" name="UserName" [(ngModel)]="UserName" />
+  </div>
+  <div>
+    <label for="Password">Enter Password: </label>
+    <input
+      type="password"
+      id="Password"
+      name="Password"
+      [(ngModel)]="Password"
+      (input)="onChangeCheckPassword()"
+    />
+  </div>
+  <div>
+    <label for="CheckPassword">Re-enter Password: </label>
+    <input
+      type="password"
+      id="CheckPassword"
+      name="CheckPassword"
+      [(ngModel)]="CheckPassword"
+      (input)="onChangeCheckPassword()"
+    />
+    @if (!samePass()) {
+      <label for="CheckPasswordError" style="color: red">Passwords do not match</label>
+    }
+  </div>
+  <button type="submit">Send</button>
+</form>
+@if (Error()) {
+  <p style="color: red">Error in {{ Error()!.field }}: {{ Error()!.message }}</p>
+}
