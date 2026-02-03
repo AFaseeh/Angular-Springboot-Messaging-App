@@ -21,7 +21,7 @@ export class RxStompService extends RxStomp {
         Authorization: `Basic ${btoa(user.username + ':' + user.password)}`,
       },
       heartbeatIncoming: 0,
-      heartbeatOutgoing: 2000000, // TODO: 20000
+      heartbeatOutgoing: 20000,
       reconnectDelay: 200,
       debug: (msg: string) => console.log(new Date(), msg),
     };
