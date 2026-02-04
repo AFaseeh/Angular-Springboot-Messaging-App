@@ -7,6 +7,7 @@ import com.example.messaging_app.dto.UserAuthResultDto;
 import com.example.messaging_app.dto.UserLoginInfoDto;
 import com.example.messaging_app.model.ChatMessage;
 import com.example.messaging_app.service.ChatService;
+import com.example.messaging_app.service.JwtService;
 import com.example.messaging_app.service.UserService;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class RestApiController {
     private final UserService userService;
     private final ChatService chatService;
 
-    RestApiController(ChatService chatService, UserService userService) {
+    RestApiController(ChatService chatService, UserService userService, JwtService jwtService) {
         this.chatService = chatService;
         this.userService = userService;
     }
@@ -39,7 +40,7 @@ public class RestApiController {
 
     @GetMapping("/login")
     public UserAuthResultDto getMethodName(@Validated @RequestBody UserLoginInfoDto userLogin) {
-        return userService.getUserFromLogin(userLogin);
+        return userService.getUserDtoFromLogin(userLogin);
     }
     
 

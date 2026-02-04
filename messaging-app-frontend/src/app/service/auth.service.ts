@@ -1,19 +1,18 @@
 import { Injectable, signal } from "@angular/core";
-import { UserLoginInfo } from "../model/UserLoginDto";
+import { UserAuthInfo } from "../model/UserLoginDtos";
 
 @Injectable({providedIn: 'root'})
 export class AuthService
 {
-    userLoginInfo: UserLoginInfo | undefined = undefined;
+    userAuthInfo: UserAuthInfo | undefined = undefined;
 
-    public setUserLoginInfo(info: UserLoginInfo)
+    public setUserAuthInfo(info: UserAuthInfo)
     {
-        console.log("User login info: " + JSON.stringify(info));
-        this.userLoginInfo = info;
+        this.userAuthInfo = info;
     }
 
-    public getUserLoginInfo()
+    public getUserAuthInfo()
     {
-        return Object.freeze(this.userLoginInfo);
+        return Object.freeze(this.userAuthInfo);
     }
 }

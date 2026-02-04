@@ -29,7 +29,7 @@ export class WebSocketService {
   }
 
   connectWsWithAuth() {
-    this.stompService.connectWithAuth(this.authService.getUserLoginInfo());
+    this.stompService.connectWithAuth(this.authService.getUserAuthInfo());
   }
 
   disconnectWs() {

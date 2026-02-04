@@ -50,9 +50,9 @@ export class Register {
       .subscribe((res) => {
         this.Error.set(res.error);
         if (res.user) {
-            this.authService.setUserLoginInfo({
+            this.authService.setUserAuthInfo({
               username: username,
-              password: pass,
+              token: res.token,
             });
             this.userEmitter.emit({
               id: res.user.id,

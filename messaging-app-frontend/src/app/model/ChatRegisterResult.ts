@@ -7,6 +7,7 @@ export type ChatRegisterResult = {
     userName: string,
   };
   error: ChatRegisterError;
+  token: string;
 };
 
 export type ChatRegisterError = {

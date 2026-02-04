@@ -1,5 +1,17 @@
-{"properties": [{
-  "name": "app.bcrypt.strength",
-  "type": "java.lang.String",
-  "description": "Password Encryption strength"
-}]}
+{"properties": [
+  {
+    "name": "app.bcrypt.strength",
+    "type": "java.lang.String",
+    "description": "Password Encryption strength"
+  },
+  {
+    "name": "app.jwt.session.minutes",
+    "type": "java.lang.String",
+    "description": "JWT Session Time in minutes"
+  },
+  {
+    "name": "app.jwt.secret-key",
+    "type": "java.lang.String",
+    "description": "Secret key used in JWT"
+  }
+]}

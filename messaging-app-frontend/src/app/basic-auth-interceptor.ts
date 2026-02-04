@@ -1,21 +1,20 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthService } from './service/auth.service';
+import { Token } from '@angular/compiler';
 
-export const basicAuthInterceptor: HttpInterceptorFn = (req, next) => {
+export const jwtAuthInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
 
-  const user = authService.getUserLoginInfo();
+  const user = authService.getUserAuthInfo();
 
   console.log("using this user in auth: " + JSON.stringify(user));
-  if (user && user.username && user.password)
+  if (user && user.username && user.token)
   {
-    const authString = btoa(`${user!.username}:${user!.password}`);
-
     const authReq = req.clone(
       {
         setHeaders: {
-          Authorization: `Basic ${authString}`
+          Authorization: `Bearer ${user!.token}`
         }
       }
     )

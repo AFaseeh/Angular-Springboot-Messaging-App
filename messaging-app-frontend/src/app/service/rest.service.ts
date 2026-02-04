@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { DestroyRef, inject, Injectable} from '@angular/core';
 import { Observable } from 'rxjs';
 import { Message } from '../model/Message';
-import { UserLoginInfo } from '../model/UserLoginDto';
+import { UserLoginInfo } from '../model/UserLoginDtos';
 import { ChatRegisterResult } from '../model/ChatRegisterResult';
 
 @Injectable({

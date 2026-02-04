@@ -1,7 +1,7 @@
 import { RxStompConfig } from '@stomp/rx-stomp';
 import { Injectable } from '@angular/core';
 import { RxStomp } from '@stomp/rx-stomp';
-import { UserLoginInfo } from '../model/UserLoginDto';
+import { UserAuthInfo } from '../model/UserLoginDtos';
 
 @Injectable({
   providedIn: 'root',
@@ -11,14 +11,14 @@ export class RxStompService extends RxStomp {
     super();
   }
 
-  public connectWithAuth(user: UserLoginInfo | undefined) {
+  public connectWithAuth(user: UserAuthInfo | undefined) {
 
-    if (!user || !user.username || !user.password) return;
+    if (!user || !user.username || !user.token) return;
 
     const config: RxStompConfig = {
       brokerURL: 'ws://localhost:8080/ws',
       connectHeaders: {
-        Authorization: `Basic ${btoa(user.username + ':' + user.password)}`,
+        Authorization: `Bearer ${user.token}`,
       },
       heartbeatIncoming: 0,
       heartbeatOutgoing: 20000,
