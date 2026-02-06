@@ -3,7 +3,6 @@ import { RestService } from './rest.service';
 import { WebSocketService } from './web-socket.service';
 import { Message } from '../model/Message';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { UserLoginInfo } from '../model/UserLoginDtos';
 
 @Injectable({
   providedIn: 'root',
@@ -30,10 +29,6 @@ export class ChatService {
           });
         }
       });
-  }
-
-  createUser(name: string, userLoginInfo: UserLoginInfo) {
-    return this.rest.createUser(name, userLoginInfo);
   }
 
   sendMessage(msg: Message) {

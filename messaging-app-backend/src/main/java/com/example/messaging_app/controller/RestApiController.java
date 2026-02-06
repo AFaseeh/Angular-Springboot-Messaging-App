@@ -38,11 +38,10 @@ public class RestApiController {
         return userService.registerNewUser(name, userLogin);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public UserAuthResultDto getMethodName(@Validated @RequestBody UserLoginInfoDto userLogin) {
         return userService.getUserDtoFromLogin(userLogin);
     }
-    
 
     @GetMapping("/chat/messages")
     public List<ChatMessage> getMessages() {

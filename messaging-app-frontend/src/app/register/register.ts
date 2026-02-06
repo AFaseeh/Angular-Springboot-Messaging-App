@@ -1,10 +1,10 @@
 import { Component, DestroyRef, inject, output, signal } from '@angular/core';
 import { ChatUser } from '../model/ChatUser';
-import { ChatService } from '../service/chat.service';
 import { AuthService } from '../service/auth.service';
 import { ChatRegisterError } from '../model/ChatRegisterResult';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
+import { RestService } from '../service/rest.service';
 
 @Component({
   selector: 'app-register',
@@ -13,12 +13,13 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './register.css',
 })
 export class Register {
-  private service = inject(ChatService);
+  private service = inject(RestService);
   private destroyRef = inject(DestroyRef);
   private authService = inject(AuthService);
 
   userEmitter = output<ChatUser>();
-  
+  loginEmitter = output<undefined>();
+
   UserName = signal('1');
   Name = signal('1');
   Password = signal('1');
@@ -27,6 +28,10 @@ export class Register {
   samePass = signal(true);
 
   Error = signal<ChatRegisterError | undefined>(undefined);
+
+  SwitchToLogin() {
+    this.loginEmitter.emit(undefined);
+  }
 
   onCreateUser() {
     const name = this.Name().toLowerCase().trim();
@@ -42,14 +47,14 @@ export class Register {
       this.samePass()
     ) {
       this.service
-      .createUser(name, {
-        username: username,
-        password: pass,
-      })
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((res) => {
-        this.Error.set(res.error);
-        if (res.user) {
+        .createUser(name, {
+          username: username,
+          password: pass,
+        })
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((res) => {
+          this.Error.set(res.error);
+          if (res.user) {
             this.authService.setUserAuthInfo({
               username: username,
               token: res.token,

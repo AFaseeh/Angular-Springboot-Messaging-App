@@ -31,6 +31,7 @@
     }
   </div>
   <button type="submit">Send</button>
+  <button (click)="SwitchToLogin()">Log in Instead</button>
 </form>
 @if (Error()) {
   <p style="color: red">Error in {{ Error()!.field }}: {{ Error()!.message }}</p>

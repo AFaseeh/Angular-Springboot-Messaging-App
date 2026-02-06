@@ -2,7 +2,10 @@
   <h1>Messaging App!</h1>
   @if (user()) {
     <app-chat [user]="user()!" />
-  } @else {
-    <app-register (userEmitter)="onAuthComplete($event)"/>
+  } @else if (onRegister()) {
+    <app-register (userEmitter)="onAuthComplete($event)" (loginEmitter)="onRegisterToggle()" />
+  }
+  @else {
+    <app-login (userEmitter)="onAuthComplete($event)" (registerEmitter)="onRegisterToggle()" />
   }
 </main>

@@ -44,9 +44,8 @@ public class UserService {
 
         if (!foundUser.isPresent()) {
             return new UserAuthResultDto(null, new AuthValidationError("UserName", "User Name Not Found"), null);
-        } else
-
-        if (encoder.matches(pass, foundUser.get().getPassword())) {
+        } 
+        else if (!encoder.matches(pass, foundUser.get().getPassword())) {
             return new UserAuthResultDto(null, new AuthValidationError("Password", "Password is incorrect"), null);
         }
 
