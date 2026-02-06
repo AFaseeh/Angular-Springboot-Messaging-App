@@ -1,0 +1,17 @@
+services:
+  server:
+    build:
+      context: ./messaging-app-backend
+    ports:
+      - 8080:8080
+
+  frontend:
+    build:
+      context: ./messaging-app-frontend
+    environment:
+      NODE_ENV: production
+    ports:
+      - 4200:4200
+
+    depends_on: 
+      - server
