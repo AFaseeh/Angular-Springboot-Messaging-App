@@ -10,13 +10,14 @@ import { ChatRegisterResult } from '../model/ChatRegisterResult';
 })
 export class RestService {
   private httpClient = inject(HttpClient);
-  private BASEURL = 'http://localhost:8080/api';
+  private BASEURL = '/api';
   
   frontpage(): Observable<{text : string}> {
     return this.httpClient.get<{text : string}>(`${this.BASEURL}/test`);
   }
   
   createUser(userName: string, userLoginInfo: UserLoginInfo): Observable<ChatRegisterResult> {
+    console.log(`${this.BASEURL}/register/${userName}`)
     return this.httpClient.post<ChatRegisterResult>(`${this.BASEURL}/register/${userName}`, userLoginInfo);
   }
   

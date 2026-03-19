@@ -1,16 +1,18 @@
 ARG NODE_VERSION=24.13.0
 
-FROM node:${NODE_VERSION}-alpine AS base
-
+FROM node:${NODE_VERSION}-alpine AS build-stage
 WORKDIR /app
-
-# Cache package installation
 COPY package*.json ./
-
 RUN npm install
-
 COPY . .
+RUN npm run build -- --configuration production
 
-EXPOSE 4200
+FROM nginx:alpine
 
-CMD ["npx", "ng", "serve", "--host", "0.0.0.0"]
+RUN rm -rf /usr/share/nginx/html/*
+
+COPY --from=build-stage /app/dist/browser/ /usr/share/nginx/html/
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

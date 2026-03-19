@@ -14,9 +14,10 @@ export class RxStompService extends RxStomp {
   public connectWithAuth(user: UserAuthInfo | undefined) {
 
     if (!user || !user.username || !user.token) return;
-
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const host = window.location.host;
     const config: RxStompConfig = {
-      brokerURL: 'ws://localhost:8080/ws',
+      brokerURL: `${protocol}//${host}/ws`,
       connectHeaders: {
         Authorization: `Bearer ${user.token}`,
       },

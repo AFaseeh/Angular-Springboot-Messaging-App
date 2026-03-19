@@ -1,9 +1,34 @@
 services:
+  db:
+    image: postgres:alpine
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: messaging_db
+      PGDATA: /var/lib/postgresql/data/pgdata
+
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  
   server:
     build:
       context: ./messaging-app-backend
     ports:
       - 8080:8080
+    image: heatrex/k8s-trials:backend
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/messaging_db
+      - SPRING_DATASOURCE_USERNAME=myuser
+      - SPRING_DATASOURCE_PASSWORD=mypassword
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_JPA_DEFER_DATASOURCE_INITIALIZATION=false
 
   frontend:
     build:
@@ -11,7 +36,10 @@ services:
     environment:
       NODE_ENV: production
     ports:
-      - 4200:4200
-
+      - 80:80
+    image: heatrex/k8s-trials:frontendcompose
     depends_on: 
       - server
+
+volumes:
+  postgres_data:
