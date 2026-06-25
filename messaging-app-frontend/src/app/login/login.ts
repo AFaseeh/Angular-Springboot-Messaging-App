@@ -6,9 +6,15 @@ import { RestService } from '../service/rest.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 
+import { PasswordModule } from 'primeng/password';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { FormErrorComponent } from '../wrappers/form-error';
+
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, PasswordModule, FloatLabelModule, InputTextModule, ButtonModule, FormErrorComponent],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -24,11 +30,14 @@ export class Login {
   Password = signal('');
   Error = signal<ChatRegisterError | undefined>(undefined);
 
+  loading = signal(false);
+
   SwitchToRegister() {
     this.registerEmitter.emit(undefined);
   }
 
   onSubmit() {
+    this.loading.set(true);
     const username = this.UserName().toLowerCase().trim();
     const pass = this.Password().toLowerCase().trim();
 
@@ -48,6 +57,7 @@ export class Login {
               name: res.user.name,
             });
           }
+          this.loading.set(false);
         });
     }
   }

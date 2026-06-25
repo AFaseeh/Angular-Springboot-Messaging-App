@@ -1,19 +1,41 @@
-<form (ngSubmit)="onSubmit()">
-  <div>
-    <label for="UserName">Enter UserName: </label>
-    <input type="text" id="UserName" name="UserName" [(ngModel)]="UserName" />
+<form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="flex-col">
+
+  <div class="input-wrapper">
+    <p-floatLabel variant="on">
+      <label for="UserName">Username</label>
+      <input pInputText type="text" id="UserName" name="UserName" [(ngModel)]="UserName"
+      #userName="ngModel"
+      [invalid]="userName.invalid && (userName.touched || loginForm.submitted)" 
+      required />
+    </p-floatLabel>
+    @if (userName.invalid && (userName.touched || loginForm.submitted)) {
+      <app-form-error message="Username is required." />
+    }
   </div>
-  <div>
-    <label for="Password">Enter Password: </label>
-    <input
-      type="password"
-      id="Password"
-      name="Password"
-      [(ngModel)]="Password"
-    />
+
+  <div class="input-wrapper">
+    <p-floatLabel variant="on">
+      <p-password
+        #passwordModel="ngModel"
+        inputId="Password"
+        name="Password"
+        [(ngModel)]="Password"
+        [feedback]="false"
+        [invalid]="passwordModel.invalid && (passwordModel.touched || loginForm.submitted)"
+        required
+      />
+      <label for="Password">Password</label>
+    </p-floatLabel>
+    @if (passwordModel.invalid && (passwordModel.touched || loginForm.submitted))
+    {
+      <app-form-error message="Password is required." />
+    }
   </div>
-  <button type="submit">Send</button>
-  <button (click)="SwitchToRegister()">Register Instead</button>
+
+  <div class="flex-row">
+    <p-button type="submit" label="Log In" [loading]="loading()" />
+    <p-button type="button" label="Register Instead" (onClick)="SwitchToRegister()" />
+  </div>
 </form>
 @if (Error()) {
   <p style="color: red">Error in {{ Error()!.field }}: {{ Error()!.message }}</p>
