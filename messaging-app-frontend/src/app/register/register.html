@@ -1,74 +1,75 @@
-<form #registerForm="ngForm" (ngSubmit)="onCreateUser()" class="flex-col">
+<form #registerForm="ngForm" (ngSubmit)="onCreateUser()" class="flex-col form-container">
 
-  <div class="flex-row">
-    <div class="flex-col">
-      <p-floatLabel variant="on">
-        <input pInputText type="text" id="Name" name="Name" [(ngModel)]="Name"
-        #name="ngModel"
-        [invalid]="name.invalid && (name.touched || registerForm.submitted)" 
-        required />
-        <label for="Name">Display Name </label>
-      </p-floatLabel>
-      @if (name.invalid && (name.touched || registerForm.submitted)) {
-        <app-form-error message="Name is required." />
-      }
-    </div>
-    <div class="flex-col">
-
-      <p-floatLabel variant="on">
-        <input pInputText type="text" id="UserName" name="UserName" [(ngModel)]="UserName"
-        #userName="ngModel"
-        [invalid]="userName.invalid && (userName.touched || registerForm.submitted)" 
-        required />
-        <label for="UserName">Username </label>
-      </p-floatLabel>
-      @if (userName.invalid && (userName.touched || registerForm.submitted)) {
-        <app-form-error message="Username is required." />
-      }
-    </div>
-  </div>
-
-  <div class="flex-row">
-    <div>
-      <p-floatLabel variant="on">
-        <p-password
-          #passModel="ngModel"
-          inputId="Password"
-          name="Password"
-          [(ngModel)]="Password"
-          (input)="onChangeCheckPassword()"
-          [feedback]="true"
-          [invalid]="!samePass() || (passModel.invalid && (passModel.touched || registerForm.submitted))"
-          required
-        ></p-password>
-        <label for="Password">Password</label>
-      </p-floatLabel>
-    </div>
-    <div>
-      <p-floatLabel variant="on">
-        <p-password
-          #checkModel="ngModel"
-          inputId="CheckPassword"
-          name="CheckPassword"
-          [(ngModel)]="CheckPassword"
-          (input)="onChangeCheckPassword()"
-          [feedback]="false"
-          [invalid]="!samePass() || (checkModel.invalid && (checkModel.touched || registerForm.submitted))"
-          required
-        ></p-password>
-        <label for="CheckPassword">Confirm Password</label>
-      </p-floatLabel>
-    </div>
-  </div>
-  <div class="flex-row">
-    @if (!samePass()) {
-      <app-form-error message="Passwords do not match" />
-    } 
-    @else if ((passModel.invalid && (passModel.touched || registerForm.submitted)) || 
-               (checkModel.invalid && (checkModel.touched || registerForm.submitted))) 
-    {
-      <app-form-error message="Password is required." />
+  <div class="input-wrapper">
+    <p-floatLabel variant="on" class="w-full">
+      <input pInputText class="w-full" type="text" id="Name" name="Name" [(ngModel)]="Name"
+      #name="ngModel"
+      [invalid]="name.invalid && (name.touched || registerForm.submitted)" 
+      required />
+      <label for="Name">Display Name </label>
+    </p-floatLabel>
+    @if (name.invalid && (name.touched || registerForm.submitted)) {
+      <app-form-error message="Name is required." />
     }
+  </div>
+  <div class="input-wrapper">
+    <p-floatLabel variant="on" class="w-full">
+      <input pInputText class="w-full" type="text" id="UserName" name="UserName" [(ngModel)]="UserName"
+      #userName="ngModel"
+      [invalid]="userName.invalid && (userName.touched || registerForm.submitted)" 
+      required />
+      <label for="UserName">Username </label>
+    </p-floatLabel>
+    @if (userName.invalid && (userName.touched || registerForm.submitted)) {
+      <app-form-error message="Username is required." />
+    }
+  </div>
+
+  <div class="input-wrapper">
+    <div class="flex-row">
+      <div class="flex-1">
+        <p-floatLabel variant="on" class="w-full">
+          <p-password
+            #passModel="ngModel"
+            [inputStyle]="{'width':'100%'}"
+            inputId="Password"
+            name="Password"
+            [(ngModel)]="Password"
+            (input)="onChangeCheckPassword()"
+            [feedback]="true"
+            [invalid]="!samePass() || (passModel.invalid && (passModel.touched || registerForm.submitted))"
+            required
+          ></p-password>
+          <label for="Password">Password</label>
+        </p-floatLabel>
+      </div>
+      <div class="flex-1">
+        <p-floatLabel variant="on" class="w-full">
+          <p-password
+            #checkModel="ngModel"
+            [inputStyle]="{'width':'100%'}"
+            inputId="CheckPassword"
+            name="CheckPassword"
+            [(ngModel)]="CheckPassword"
+            (input)="onChangeCheckPassword()"
+            [feedback]="false"
+            [invalid]="!samePass() || (checkModel.invalid && (checkModel.touched || registerForm.submitted))"
+            required
+          ></p-password>
+          <label for="CheckPassword">Confirm Password</label>
+        </p-floatLabel>
+      </div>
+    </div>
+    <div>
+      @if (!samePass()) {
+        <app-form-error message="Passwords do not match" />
+      } 
+      @else if ((passModel.invalid && (passModel.touched || registerForm.submitted)) || 
+                 (checkModel.invalid && (checkModel.touched || registerForm.submitted))) 
+      {
+        <app-form-error message="Password is required." />
+      }
+    </div>
   </div>
 
   <div class="flex-row">

@@ -19,3 +19,18 @@
 .flex-1{
     flex: 1;
 }
+
+.input-wrapper {
+  min-height: 4rem; 
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items:center
+}
+
+.form-container {
+  width: 100%;
+  max-width: 35rem;
+  margin: 0 auto;
+  padding: 2rem;
+}
