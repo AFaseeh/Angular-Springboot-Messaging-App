@@ -32,11 +32,13 @@
           <p-password
             #passModel="ngModel"
             [inputStyle]="{'width':'100%'}"
+            styleClass="w-full"
             inputId="Password"
             name="Password"
             [(ngModel)]="Password"
             (input)="onChangeCheckPassword()"
             [feedback]="true"
+            [toggleMask]="true"
             [invalid]="!samePass() || (passModel.invalid && (passModel.touched || registerForm.submitted))"
             required
           ></p-password>
@@ -48,12 +50,14 @@
           <p-password
             #checkModel="ngModel"
             [inputStyle]="{'width':'100%'}"
+            styleClass="w-full"
             inputId="CheckPassword"
             name="CheckPassword"
             [(ngModel)]="CheckPassword"
             (input)="onChangeCheckPassword()"
             [feedback]="false"
             [invalid]="!samePass() || (checkModel.invalid && (checkModel.touched || registerForm.submitted))"
+            [toggleMask]="true"
             required
           ></p-password>
           <label for="CheckPassword">Confirm Password</label>
@@ -73,10 +77,7 @@
   </div>
 
   <div class="flex-row">
-    <p-button type="submit" label="Register" [loading]="loading()" />
-    <p-button type="button" label="Log in Instead" (onClick)="SwitchToLogin()" />
+    <p-button type="submit" label="Register" [loading]="loading()" styleClass="flex-1" />
+    <p-button type="button" label="Log in Instead" (onClick)="SwitchToLogin()" styleClass="flex-1" />
   </div>
 </form>
-@if (Error()) {
-  <p style="color: red">Error in {{ Error()!.field }}: {{ Error()!.message }}</p>
-}

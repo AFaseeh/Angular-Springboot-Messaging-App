@@ -11,6 +11,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { FormErrorComponent } from '../wrappers/form-error';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,7 @@ export class Login {
   private service = inject(RestService);
   private destroyRef = inject(DestroyRef);
   private authService = inject(AuthService);
-
+  private messageService = inject(MessageService);
   userEmitter = output<ChatUser>();
   registerEmitter = output<undefined>();
 
@@ -37,11 +38,11 @@ export class Login {
   }
 
   onSubmit() {
-    this.loading.set(true);
     const username = this.UserName().toLowerCase().trim();
     const pass = this.Password().toLowerCase().trim();
-
+    
     if (username.length != 0 && pass.length != 0) {
+      this.loading.set(true);
       this.service
         .getUser({ username: username, password: pass })
         .pipe(takeUntilDestroyed(this.destroyRef))
@@ -55,6 +56,13 @@ export class Login {
             this.userEmitter.emit({
               id: res.user.id,
               name: res.user.name,
+            });
+          }
+          else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: `Failed to login. Please try again. \n${res.error?.message || ''}`,
             });
           }
           this.loading.set(false);

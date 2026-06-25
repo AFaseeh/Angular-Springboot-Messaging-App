@@ -11,6 +11,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { FormErrorComponent } from '../wrappers/form-error';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-register',
@@ -22,6 +23,7 @@ export class Register {
   private service = inject(RestService);
   private destroyRef = inject(DestroyRef);
   private authService = inject(AuthService);
+  private messageService = inject(MessageService);
 
   userEmitter = output<ChatUser>();
   loginEmitter = output<undefined>();
@@ -42,12 +44,11 @@ export class Register {
   }
 
   onCreateUser() {
-    this.loading.set(true);
     const name = this.Name().toLowerCase().trim();
     const username = this.UserName().toLowerCase().trim();
     const pass = this.Password().toLowerCase().trim();
     const checkPass = this.CheckPassword().toLowerCase().trim();
-
+    
     if (
       name.length != 0 &&
       username.length != 0 &&
@@ -55,9 +56,10 @@ export class Register {
       checkPass.length != 0 &&
       this.samePass()
     ) {
+      this.loading.set(true);
       this.service
-        .createUser(name, {
-          username: username,
+      .createUser(name, {
+        username: username,
           password: pass,
         })
         .pipe(takeUntilDestroyed(this.destroyRef))
@@ -71,6 +73,14 @@ export class Register {
             this.userEmitter.emit({
               id: res.user.id,
               name: res.user.name,
+            });
+          }
+          else
+          {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: `Failed to create user. Please try again. \n${res.error?.message || ''}`,
             });
           }
           this.loading.set(false);

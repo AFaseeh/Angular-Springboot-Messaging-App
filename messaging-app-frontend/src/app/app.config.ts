@@ -9,6 +9,8 @@ import { jwtAuthInterceptor } from './basic-auth-interceptor';
 import { providePrimeNG } from 'primeng/config';
 import customPreset from './theme/custom-preset';
 
+import { MessageService } from 'primeng/api';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -19,6 +21,7 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: customPreset
       }
-    })
+    }),
+    MessageService
   ]
 };
