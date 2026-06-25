@@ -6,11 +6,19 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { RxStompService } from './service/RxStompService.service';
 import { jwtAuthInterceptor } from './basic-auth-interceptor';
 
+import { providePrimeNG } from 'primeng/config';
+import customPreset from './theme/custom-preset';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideHttpClient(withInterceptors([jwtAuthInterceptor])),
-    RxStompService
+    RxStompService,
+    providePrimeNG({
+      theme: {
+        preset: customPreset
+      }
+    })
   ]
 };
