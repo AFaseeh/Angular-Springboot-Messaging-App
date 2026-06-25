@@ -33,11 +33,15 @@ services:
   frontend:
     build:
       context: ./messaging-app-frontend
+      dockerfile: Dockerfile.dev
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
     ports:
-      - 80:80
-    image: heatrex/k8s-trials:frontendcompose
+      - 4200:4200
+    image: heatrex/k8s-trials:frontendcompose-dev
+    volumes:
+      - ./messaging-app-frontend:/app
+      - /app/node_modules
     depends_on: 
       - server
 
