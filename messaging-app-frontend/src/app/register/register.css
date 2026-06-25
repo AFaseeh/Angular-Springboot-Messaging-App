@@ -1,0 +1,21 @@
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.flex-1{
+    flex: 1;
+}

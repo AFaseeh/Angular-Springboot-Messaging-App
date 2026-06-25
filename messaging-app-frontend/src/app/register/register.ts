@@ -6,9 +6,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { RestService } from '../service/rest.service';
 
+import { PasswordModule } from 'primeng/password';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { FormErrorComponent } from '../wrappers/form-error';
+
 @Component({
   selector: 'app-register',
-  imports: [FormsModule],
+  imports: [FormsModule, PasswordModule, FloatLabelModule, InputTextModule, ButtonModule, FormErrorComponent],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
@@ -20,20 +26,23 @@ export class Register {
   userEmitter = output<ChatUser>();
   loginEmitter = output<undefined>();
 
-  UserName = signal('1');
-  Name = signal('1');
-  Password = signal('1');
-  CheckPassword = signal('1');
+  UserName = signal('');
+  Name = signal('');
+  Password = signal('');
+  CheckPassword = signal('');
 
   samePass = signal(true);
 
   Error = signal<ChatRegisterError | undefined>(undefined);
+
+  loading = signal(false);
 
   SwitchToLogin() {
     this.loginEmitter.emit(undefined);
   }
 
   onCreateUser() {
+    this.loading.set(true);
     const name = this.Name().toLowerCase().trim();
     const username = this.UserName().toLowerCase().trim();
     const pass = this.Password().toLowerCase().trim();
@@ -64,6 +73,7 @@ export class Register {
               name: res.user.name,
             });
           }
+          this.loading.set(false);
         });
     }
   }
