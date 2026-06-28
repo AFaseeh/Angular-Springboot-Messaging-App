@@ -1,0 +1,18 @@
+:host{
+    display:block;
+    width: 100%;
+    margin: 0.5rem;
+}
+
+.message-wrapper{
+    display: flex;
+    width: auto;
+}
+
+.is-me{
+    justify-content: flex-end;
+}
+
+.is-other{
+    justify-content: flex-start;
+}

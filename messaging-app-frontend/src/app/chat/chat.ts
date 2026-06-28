@@ -5,9 +5,14 @@ import { ChatMessage } from '../chat-message/chat-message';
 import { FormsModule } from '@angular/forms';
 import { Message } from '../model/Message';
 
+import { SplitterModule } from 'primeng/splitter';
+import { ScrollPanel, ScrollPanelModule } from 'primeng/scrollpanel';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+
 @Component({
   selector: 'app-chat',
-  imports: [FormsModule, ChatMessage],
+  imports: [FormsModule, ChatMessage, SplitterModule, ScrollPanelModule, ButtonModule, InputTextModule],
   templateUrl: './chat.html',
   styleUrl: './chat.css',
 })

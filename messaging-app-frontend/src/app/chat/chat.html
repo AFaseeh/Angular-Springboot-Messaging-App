@@ -1,12 +1,26 @@
-@if (chatMessages().length === 0) {
-  <p class="no-messages">No messages yet</p>
-} @else {
-  @for (msg of chatMessages(); track msg) {
-    <app-chat-message [message]="msg" [currentUserId]="user().id" />
-  }
-}
-<form (ngSubmit)="onSendMessage()">
-    <label for="sendMessage">Enter Message: </label>
-    <input type="text" id="sendMessage" name="sendMessage" [(ngModel)]="messageContent" />
-    <button type="submit">Send</button>
-</form>
+<p-splitter [panelSizes]="[15, 85]" class="h-full">
+  <ng-template #panel>
+    <div class="centered-container">Panel 1</div>
+  </ng-template>
+  <ng-template #panel>
+    <p-splitter [panelSizes]="[92, 8]" class="h-full" layout="vertical">
+      <ng-template #panel>
+          <p-scrollPanel #scrollPanel class="chat-area" >
+            @if (chatMessages().length === 0) {
+              <p>No messages yet</p>
+            } @else {
+              @for (msg of chatMessages(); track msg) {
+                <app-chat-message [message]="msg" [currentUserId]="user().id" />
+              }
+            }
+          </p-scrollPanel>
+      </ng-template>
+      <ng-template #panel>
+        <form (ngSubmit)="onSendMessage()" class="chat-form">
+          <input pInputText type="text" fluid="true" id="sendMessage" name="sendMessage" [(ngModel)]="messageContent" required />
+          <p-button class="send-message-btn" icon="pi pi-send" type="submit" [rounded]="true" [text]="true" [raised]="true" severity="info" />      
+        </form>
+      </ng-template>
+    </p-splitter>
+  </ng-template>
+</p-splitter>

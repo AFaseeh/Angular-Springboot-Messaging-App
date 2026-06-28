@@ -9,7 +9,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class ChatService {
   messages = signal<Message[]>([]);
-  maxLen = 5;
+  maxLen = -1;
   currentUserId?: number;
 
   constructor(
@@ -24,7 +24,7 @@ export class ChatService {
         if (msg) {
           this.messages.update((msgs) => {
             const updatedMsgs = [...msgs, msg];
-            if (updatedMsgs.length > this.maxLen) updatedMsgs.shift();
+            if (this.maxLen !== -1 && updatedMsgs.length > this.maxLen) updatedMsgs.shift();
             return updatedMsgs;
           });
         }
