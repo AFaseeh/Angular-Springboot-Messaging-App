@@ -38,16 +38,6 @@ export class Chat {
         }
       }});
   }
-
-  ngAfterViewInit() {
-    const scrollElement = this.scrollPanel().contentViewChild!.nativeElement;
-
-    if (scrollElement) {
-      scrollElement.addEventListener('scroll', (event: Event) => {
-        this.onScroll(event.target as HTMLElement);
-      });
-    }
-  }
   
   ngOnInit() {
     this.service.connectWsWithAuth();
@@ -73,7 +63,8 @@ export class Chat {
     scrollElement?.scrollTo({ top: scrollElement.scrollHeight , behavior: 'smooth' });
   }
 
-  onScroll(scrollElement: HTMLElement) {
+onScroll = (event: Event) => {
+    const scrollElement = event.target as HTMLElement;
     // Check if the user is at the bottom of the scroll panel
     // scrollTop: non rounded num, scrollHeight: rounded num, clientHeight: rounded num
     // docs: https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollHeight

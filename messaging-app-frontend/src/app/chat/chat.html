@@ -5,7 +5,7 @@
   <ng-template #panel>
     <p-splitter [panelSizes]="[92, 8]" class="h-full" layout="vertical">
       <ng-template #panel>
-          <p-scrollPanel #scrollPanel class="chat-area" >
+          <p-scrollPanel #scrollPanel class="chat-area" [pt] = "{  content : { onScroll: onScroll } }">
             @if (chatMessages().length === 0) {
               <p>No messages yet</p>
             } @else {
