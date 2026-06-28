@@ -4,4 +4,6 @@
 html, body {
     margin: 0;
     padding: 0;
+    background-color: var(--p-surface-0); 
+    color: var(--p-surface-900);
 }

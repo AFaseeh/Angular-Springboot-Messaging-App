@@ -4,7 +4,7 @@
     [class.is-me]="message().user.id === currentUserId()" 
     [class.is-other]="message().user.id !== currentUserId()">
     
-    <p-card header="{{ message().user.name }}">
+    <p-card header="{{ message().user.name }}"  class="message-bubble">
       <p>
           {{ message().text }}
       </p>

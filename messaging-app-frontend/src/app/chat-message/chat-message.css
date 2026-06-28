@@ -16,3 +16,18 @@
 .is-other{
     justify-content: flex-start;
 }
+
+.is-me .message-bubble {
+    background-color: var(--p-primary-500);
+    color: var(--p-primary-contrast-color);
+}
+
+.is-other .message-bubble {
+    background-color: var(--p-surface-100); 
+    color: var(--p-text-primary);
+}
+
+.message-bubble {
+    max-width: 60%;
+    border-radius: 1.5rem;
+}
