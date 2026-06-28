@@ -2,7 +2,7 @@
 
   <div class="input-wrapper">
     <p-floatLabel variant="on" class="w-full">
-      <input pInputText type="text" class="w-full" id="UserName" name="UserName" [(ngModel)]="UserName"
+      <input pInputText type="text" fluid="true" id="UserName" name="UserName" [(ngModel)]="UserName"
       #userName="ngModel"
       [invalid]="userName.invalid && (userName.touched || loginForm.submitted)" 
       required />
@@ -18,7 +18,7 @@
       <p-password
         #passwordModel="ngModel"
         [inputStyle]="{'width':'100%'}"
-        styleClass="w-full"
+        fluid="true"
         inputId="Password"
         name="Password"
         [(ngModel)]="Password"
