@@ -1,5 +1,6 @@
 package com.example.messaging_app.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,5 +24,6 @@ public class ChatMessage {
     @JoinColumn(name = "user_id", nullable = false)
     private ChatUser user;
     
+    @Column(columnDefinition = "TEXT")
     private String text;
 }
