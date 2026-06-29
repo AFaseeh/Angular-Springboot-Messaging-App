@@ -28,6 +28,7 @@
 }
 
 .message-bubble {
+    min-width: 7.5%;
     max-width: 60%;
     border-radius: 1.5rem;
 }
