@@ -1,4 +1,4 @@
-import { afterRenderEffect, Component, inject, input, Signal, signal, viewChild} from '@angular/core';
+import { afterRenderEffect, Component, ElementRef, inject, input, Signal, signal, viewChild} from '@angular/core';
 import { ChatService } from '../service/chat.service';
 import { ChatUser } from '../model/ChatUser';
 import { ChatMessage } from '../chat-message/chat-message';
@@ -22,7 +22,7 @@ export class Chat {
   user = input.required<ChatUser>();
   messageContent = signal('');
   
-  scrollPanel = viewChild.required<ScrollPanel>('scrollPanel');
+  scrollPanel = viewChild.required<ElementRef<HTMLDivElement>>('scrollPanel');
   shouldScrollToBottom = true;
   private isAutoScrolling = false; 
   
@@ -59,7 +59,7 @@ export class Chat {
   
   scrollToBottom() {
     this.isAutoScrolling = true;
-    const scrollElement : HTMLElement = this.scrollPanel().contentViewChild!.nativeElement;
+    const scrollElement : HTMLElement = this.scrollPanel().nativeElement;
     scrollElement?.scrollTo({ top: scrollElement.scrollHeight , behavior: 'smooth' });
   }
 
